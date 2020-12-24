@@ -1,0 +1,133 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Scripts/System.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Main.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Images/galaxy cruz_equi.jpg" type="Texture" id=3]
+[ext_resource path="res://Scenes/Entities/Body.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/Fonts/arial.ttf" type="DynamicFontData" id=5]
+
+[sub_resource type="PanoramaSky" id=1]
+radiance_size = 3
+panorama = ExtResource( 3 )
+
+[sub_resource type="Environment" id=2]
+background_mode = 2
+background_sky = SubResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 41
+font_data = ExtResource( 5 )
+
+[node name="Main" type="Node"]
+script = ExtResource( 2 )
+
+[node name="System" type="Node" parent="."]
+script = ExtResource( 1 )
+
+[node name="Sun" parent="System" instance=ExtResource( 4 )]
+mass = 6660.0
+color = Color( 0.898039, 1, 0, 1 )
+radius = 3.8
+height = 0.0
+emission = true
+emission_color = Color( 1, 0.984314, 0, 1 )
+emission_energy = 5.9
+
+[node name="Mercury" parent="System" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 31.61 )
+mass = 0.01
+linear_velocity = Vector3( 13.056, 0, 0 )
+color = Color( 0.364706, 0.364706, 0.364706, 1 )
+radius = 0.58
+height = 0.0
+
+[node name="Venus" parent="System" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 41.69 )
+mass = 0.02
+linear_velocity = Vector3( 17.066, 0, 0 )
+color = Color( 0.466667, 0.266667, 0.00784314, 1 )
+radius = 0.58
+height = 0.0
+
+[node name="Earth" parent="System" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 50 )
+mass = 0.02
+linear_velocity = Vector3( 14.336, 0, 0 )
+color = Color( 0, 0.0784314, 0.933333, 1 )
+height = 0.01
+
+[node name="Mars" parent="System" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 65.72 )
+mass = 0.01
+linear_velocity = Vector3( 11.606, 0, 0 )
+color = Color( 0.643137, 0, 0, 1 )
+radius = 0.58
+height = 0.0
+
+[node name="Jupiter" parent="System" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 176.09 )
+mass = 6.36
+linear_velocity = Vector3( 36, 0, 0 )
+color = Color( 0.988235, 0.737255, 0.443137, 1 )
+radius = 8.5
+height = 0.0
+
+[node name="Saturn" parent="System" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 306.17 )
+mass = 1.9
+linear_velocity = Vector3( 28, 0, 0 )
+color = Color( 0.47451, 0.431373, 0.34902, 1 )
+radius = 7.0
+height = 0.0
+
+[node name="Uranus" parent="System" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 595.4 )
+mass = 0.29
+linear_velocity = Vector3( 20, 0, 0 )
+color = Color( 0, 1, 0.882353, 1 )
+radius = 3.0
+height = 0.0
+
+[node name="Neptune" parent="System" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 921.8 )
+mass = 0.34
+linear_velocity = Vector3( 16, 0, 0 )
+color = Color( 0, 0.462745, 1, 1 )
+radius = 3.0
+height = 0.0
+
+[node name="CameraGimbal" type="Spatial" parent="."]
+transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 0, 0, 0 )
+
+[node name="InnerGimbal" type="Spatial" parent="CameraGimbal"]
+transform = Transform( 1, -1.2963e-07, -6.42335e-08, 1.2963e-07, 0.605738, 0.795664, -6.42335e-08, -0.795664, 0.605738, 0, 0, 0 )
+
+[node name="Camera" type="Camera" parent="CameraGimbal/InnerGimbal"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.34214e-06, 0, 82.5481 )
+far = 8192.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 2 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -508.0
+margin_top = -56.0
+margin_right = -12.0
+custom_fonts/normal_font = SubResource( 3 )
+bbcode_enabled = true
+bbcode_text = "[right]Focused: [color=#ffff00]Sun[/color][/right]"
+text = "Focused: Sun"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OmniLight" type="OmniLight" parent="."]
+light_color = Color( 0.996078, 1, 0.501961, 1 )
+light_energy = 1.17
+omni_range = 4096.0

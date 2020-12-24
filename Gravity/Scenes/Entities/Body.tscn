@@ -1,0 +1,73 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://trail.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Entities/Body.gd" type="Script" id=2]
+
+[sub_resource type="SphereMesh" id=1]
+resource_local_to_scene = true
+radial_segments = 32
+rings = 16
+
+[sub_resource type="SpatialMaterial" id=2]
+resource_local_to_scene = true
+albedo_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="SphereShape" id=3]
+resource_local_to_scene = true
+
+[sub_resource type="SpatialMaterial" id=4]
+emission_enabled = true
+emission = Color( 0, 1, 0.976471, 1 )
+emission_energy = 16.0
+emission_operator = 0
+emission_on_uv2 = false
+
+[sub_resource type="SpatialMaterial" id=5]
+resource_local_to_scene = true
+flags_unshaded = true
+albedo_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="SphereMesh" id=6]
+resource_local_to_scene = true
+material = SubResource( 5 )
+radius = 0.1
+height = 0.2
+radial_segments = 4
+rings = 1
+
+[sub_resource type="Curve" id=7]
+_data = [ Vector2( 0.936782, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[node name="Body" type="RigidBody"]
+gravity_scale = 0.0
+script = ExtResource( 2 )
+
+[node name="Mesh" type="MeshInstance" parent="."]
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 3 )
+
+[node name="GM_Trail" type="Spatial" parent="."]
+visible = false
+script = ExtResource( 1 )
+material = SubResource( 4 )
+resolution = 0.0
+life_time = 10.0
+emit = false
+
+[node name="Top" type="Spatial" parent="GM_Trail"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0 )
+
+[node name="Bottom" type="Spatial" parent="GM_Trail"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4, 0 )
+
+[node name="Trail" type="CPUParticles" parent="."]
+amount = 50
+lifetime = 10.0
+local_coords = false
+mesh = SubResource( 6 )
+gravity = Vector3( 0, 0, 0 )
+scale_amount_curve = SubResource( 7 )
+color = Color( 1, 0, 0, 1 )
